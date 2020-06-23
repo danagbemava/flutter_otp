@@ -1,7 +1,6 @@
 library flutter_otp;
 
 import 'dart:math';
-import 'package:sms/sms.dart';
 
 class FlutterOtp {
   int _otp, _minOtpValue, _maxOtpValue; //Generated OTP
@@ -21,33 +20,6 @@ class FlutterOtp {
     _minOtpValue = min;
     _maxOtpValue = max;
     _otp = _minOtpValue + Random().nextInt(_maxOtpValue - _minOtpValue);
-  }
-
-  /// This function should be called with [phoneNumber] as a Parameter and
-  /// [messageText] as a optional parameter. If [messageText] is not passed it is
-  /// taken as 'You OTP is : <Generated OTP>'.
-  /// You can also pass [countryCode] (optional) as a parameter to sendtOtp function
-  /// Otherwise +91 is taken as default country code (INDIA)
-
-  void sendOtp(String phoneNumber,
-      [String messageText,
-      int min = 1000,
-      int max = 9999,
-      String countryCode = '+1']) {
-    //function parameter 'message' is optional.
-    generateOtp(min, max);
-    SmsSender sender = new SmsSender();
-    String address = (countryCode ?? '+1') +
-        phoneNumber; // +1 for USA. Change it according to use.
-
-    /// Use country code as per your requirement.
-    /// +1 : USA / Canada
-    /// +91: India
-    /// +44: UK
-    /// For other countries, please refer https://countrycode.org/
-
-    sender.sendSms(new SmsMessage(
-        address, messageText ?? 'Your OTP is : ' + _otp.toString()));
   }
 
   /// This function is used to validate the OTP entered by the user, by comparing
